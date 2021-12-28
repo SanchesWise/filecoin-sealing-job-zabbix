@@ -1,5 +1,6 @@
 import os
 import time
+import fileinput
 
 sector_list = []
 # dict.fromkeys(['PID', 'WORKER', 'STAGE', 'STATE', 'TIME'])
@@ -9,7 +10,8 @@ workers = []
 abnormal_count = 0
 freezePC2_count = 0
 
-with open(file_name, mode='r', encoding='utf8') as file:
+#with open(file_name, mode='r', encoding='utf8') as file:
+with fileinput.input() as file:
     for line in file:
         sector_list.append(dict(zip(['#PID', '#WORKER', '#STAGE', '#STATE', '#TIME'], line[:-1].split(' '))))
 
