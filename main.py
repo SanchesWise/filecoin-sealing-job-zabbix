@@ -64,10 +64,10 @@ if workerPC1current_count < workerPC1count:
 
 # [{"{#UNIT.NAME}":"console-screen.service",
 for keys in workers_sectors_number:
-    json_ready.append({'\x7B#NAME\x7D': keys, '\x7B#VALUE\x7D': workers_sectors_number[keys]})
+    json_ready.append({'name': keys, 'value': workers_sectors_number[keys]})
 
 #print(json_ready)
 json_object = json.dumps(json_ready, indent=1)
-print(f'\x7B"data":{json_object}\x7D')
+print(f'{json_object}')
 
-#[f"\x7B#{worker}_TOTAL\x7D"
+#[f"\x7B#{worker}_TOTAL\x7D" \x7B"data": \x7D
