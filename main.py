@@ -17,8 +17,8 @@ dict_blanc = ['#PID', '#WORKER', '#STAGE', '#STATE', '#TIME']
 worker_phase_list = []
 json_ready = []
 
-#with open(file_name, mode='r', encoding='utf8') as file:
-with fileinput.input() as file:
+with open(file_name, mode='r', encoding='utf8') as file:
+#with fileinput.input() as file:
     for line in file:
         sector_list.append(dict(zip(dict_blanc, line[:-1].split(' '))))
 
@@ -68,6 +68,6 @@ for keys in workers_sectors_number:
 
 #print(json_ready)
 json_object = json.dumps(json_ready, indent=1)
-print(json_object)
+print(f'\x7B"data":{json_object}\x7D')
 
 #[f"\x7B#{worker}_TOTAL\x7D"
