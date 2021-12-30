@@ -65,7 +65,7 @@ if workerPC1current_count < workerPC1count:
 # [{"{#UNIT.NAME}":"console-screen.service",
 for keys in workers_sectors_number:
     json_ready.append({'name': keys, 'value': workers_sectors_number[keys]})
-
+json_ready.append({'name': "FreezePC2_count", 'value': freezePC2_count})
 #print(json_ready)
 json_object = json.dumps(json_ready, indent=1)
 print(f'{json_object}')
