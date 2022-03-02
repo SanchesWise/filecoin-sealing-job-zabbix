@@ -22,7 +22,7 @@ with fileinput.input() as file:
     for line in file:
         sector_list.append(dict(zip(dict_blanc, line[:-1].split(' '))))
 
-# print(f'{sector_list}')
+print(f'{sector_list}')
 for sector in sector_list:
     workers.append(sector['#WORKER'])
 workerslist = list(set(workers))
@@ -53,14 +53,14 @@ for key in workers_sectors_number:
         workerPC1current_count += 1
         workerPC1summary_sectors += workers_sectors_number[key]
 
-if workerPC1summary_sectors < 10 * workerPC1current_count:
-    pass
+if workerPC1summary_sectors < 20
+    print(f'Adding pledge')
 if workerPC1current_count < workerPC1count:
     pass
-# print(f'abnormal_count = {abnormal_count}, freezePC2_count = {freezePC2_count}')
-# print(f'{workers_sectors_number}')
-# print(f'workerPC1summary_sectors {workerPC1summary_sectors} workerPC1current_count {10*workerPC1current_count}')
-
+#print(f'abnormal_count = {abnormal_count}, freezePC2_count = {freezePC2_count}')
+#print(f'{workers_sectors_number}')
+#print(f'workerPC1summary_sectors {workerPC1summary_sectors} workerPC1current_count {10*workerPC1current_count}')
+#print(workerPC1summary_sectors)
 
 # [{"{#UNIT.NAME}":"console-screen.service",
 for keys in workers_sectors_number:
