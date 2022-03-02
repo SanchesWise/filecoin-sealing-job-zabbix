@@ -22,7 +22,7 @@ with fileinput.input() as file:
     for line in file:
         sector_list.append(dict(zip(dict_blanc, line[:-1].split(' '))))
 
-print(f'{sector_list}')
+#print(f'{sector_list}')
 for sector in sector_list:
     workers.append(sector['#WORKER'])
 workerslist = list(set(workers))
