@@ -53,7 +53,7 @@ for key in workers_sectors_number:
         workerPC1current_count += 1
         workerPC1summary_sectors += workers_sectors_number[key]
 
-if workerPC1summary_sectors < 20
+if workerPC1summary_sectors < 20:
     print(f'Adding pledge')
 if workerPC1current_count < workerPC1count:
     pass
