@@ -60,6 +60,7 @@ if workerPC1summary_sectors < 20:
         status = subprocess.run(["lotus-miner", "sectors", "pledge"], stdout=subprocess.PIPE, stderr=subprocess.PIPE,
                                 text=True)
         file.write(f'action : {status.PIPE}')
+
 if workerPC1current_count < workerPC1count:
     pass
 #print(f'abnormal_count = {abnormal_count}, freezePC2_count = {freezePC2_count}')
