@@ -2,6 +2,7 @@
 
 import fileinput
 import json
+import subprocess
 
 sector_list = []
 # dict.fromkeys(['PID', 'WORKER', 'STAGE', 'STATE', 'TIME'])
@@ -54,8 +55,11 @@ for key in workers_sectors_number:
         workerPC1summary_sectors += workers_sectors_number[key]
 
 if workerPC1summary_sectors < 20:
-    print(f'{workerPC1summary_sectors}')
-    print(f'Adding pledge')
+    with open("pledge.log", mode='a', encoding='utf8') as file:
+        file.write(f'summary sectors PC1 : {workerPC1summary_sectors}')
+        status = subprocess.run(["lotus-miner", "sectors", "pledge"], stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                                text=True)
+        file.write(f'action : {status.PIPE}')
 if workerPC1current_count < workerPC1count:
     pass
 #print(f'abnormal_count = {abnormal_count}, freezePC2_count = {freezePC2_count}')
