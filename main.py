@@ -2,6 +2,7 @@
 
 import fileinput
 import json
+import os
 import subprocess
 from datetime import datetime
 
@@ -58,8 +59,9 @@ for key in workers_sectors_number:
 if workerPC1summary_sectors < 20:
     with open("pledge.log", mode='a', encoding='utf8') as file:
         file.write(f'{datetime.today()}  Summary sectors PC1 : {workerPC1summary_sectors}\n ')
-        status = subprocess.check_output(["/usr/local/bin/lotus-miner", "sectors", "pledge"], stderr=subprocess.STDOUT)
-        file.write(f'action : {status.decode("utf-8")}\n')
+        os.system("/usr/local/bin/lotus-miner sectors pledge >> /home/ccsfarm/filecoin-sealing-job-zabbix/pledge.log 2>&1")
+        #status = subprocess.check_output(["/usr/local/bin/lotus-miner", "sectors", "pledge"], stderr=subprocess.STDOUT)
+        #file.write(f'action : {status.decode("utf-8")}\n')
 
 if workerPC1current_count < workerPC1count:
     pass
