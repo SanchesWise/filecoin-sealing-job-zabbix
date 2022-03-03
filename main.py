@@ -3,6 +3,7 @@
 import fileinput
 import json
 import subprocess
+from datetime import datetime
 
 sector_list = []
 # dict.fromkeys(['PID', 'WORKER', 'STAGE', 'STATE', 'TIME'])
@@ -56,9 +57,9 @@ for key in workers_sectors_number:
 
 if workerPC1summary_sectors < 20:
     with open("pledge.log", mode='a', encoding='utf8') as file:
-        file.write(f'summary sectors PC1 : {workerPC1summary_sectors}')
+        file.write(f'{datetime.today()}summary sectors PC1 : {workerPC1summary_sectors}\n ')
         status = subprocess.check_output(["/usr/local/bin/lotus-miner", "sectors", "pledge"], stderr=subprocess.STDOUT)
-        file.write(f'action : {status.decode("utf-8")}')
+        file.write(f'action : {status.decode("utf-8")}\n')
 
 if workerPC1current_count < workerPC1count:
     pass
