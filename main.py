@@ -57,7 +57,7 @@ for key in workers_sectors_number:
 if workerPC1summary_sectors < 20:
     with open("pledge.log", mode='a', encoding='utf8') as file:
         file.write(f'summary sectors PC1 : {workerPC1summary_sectors}')
-        status = subprocess.check_output("/usr/local/bin/lotus-miner sectors pledge")
+        status = subprocess.check_output(["/usr/local/bin/lotus-miner", "sectors", "pledge"], stderr=subprocess.STDOUT)
         file.write(f'action : {status.decode("utf-8")}')
 
 if workerPC1current_count < workerPC1count:
