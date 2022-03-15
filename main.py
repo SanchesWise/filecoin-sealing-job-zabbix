@@ -24,14 +24,14 @@ json_ready = []
 with fileinput.input() as file:
     for line in file:
         CurrentLine = dict(zip(dict_blanc, line[:-1].split(' ')))
-        print(f'{CurrentLine}')
+        #print(f'{CurrentLine}')
         try:
             if CurrentLine['#TIME']:
                 sector_list.append(CurrentLine)
         except KeyError:
             command = (f'/usr/local/bin/lotus-miner sealing abort {CurrentLine["#PID"]} >> /var/log/filecoin-zabbix/pledge.log 2>&1')
             os.system(f'{command}')
-            print(f'{command}')
+            #print(f'{command}')
 
 
 for sector in sector_list:
