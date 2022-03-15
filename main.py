@@ -23,9 +23,17 @@ json_ready = []
 #with open(file_name, mode='r', encoding='utf8') as file:
 with fileinput.input() as file:
     for line in file:
-        sector_list.append(dict(zip(dict_blanc, line[:-1].split(' '))))
+        CurrentLine = dict(zip(dict_blanc, line[:-1].split(' ')))
+        print(f'{CurrentLine}')
+        try:
+            if CurrentLine['#TIME']:
+                sector_list.append(CurrentLine)
+        except KeyError:
+            command = (f'/usr/local/bin/lotus-miner sealing abort {CurrentLine["#PID"]} >> /var/log/filecoin-zabbix/pledge.log 2>&1')
+            os.system(f'{command}')
+            print(f'{command}')
 
-#print(f'{sector_list}')
+
 for sector in sector_list:
     workers.append(sector['#WORKER'])
 workerslist = list(set(workers))
