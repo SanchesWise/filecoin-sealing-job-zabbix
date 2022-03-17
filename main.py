@@ -15,7 +15,9 @@ abnormal_count = 0
 freezePC2_count = 0
 workerPC1count = 2
 workerPC1current_count = 0
+workerGETcurrent_count = 0
 workerPC1summary_sectors = 0
+workerGETsummary_sectors = 0
 dict_blanc = ['#PID', '#WORKER', '#STAGE', '#STATE', '#TIME']
 worker_phase_list = []
 json_ready = []
@@ -63,10 +65,15 @@ for key in workers_sectors_number:
     if workers_sectors_number[key] > 0 and "PC1" in key:
         workerPC1current_count += 1
         workerPC1summary_sectors += workers_sectors_number[key]
+    if workers_sectors_number[key] > 0 and "GET" in key:
+        workerGETcurrent_count += 1
+        workerGETsummary_sectors += workers_sectors_number[key]
+
 #os.umask(0)
 with open("/var/log/filecoin-zabbix/pledge.log", mode='a', encoding='utf8') as file:
-    file.write(f'{datetime.today()}  Summary sectors PC1 : {workerPC1summary_sectors}\n ')
-if workerPC1summary_sectors < 20:
+    file.write(f'{datetime.today()}  Summary sectors in PC1 state: {workerPC1summary_sectors}\n ')
+    file.write(f'{datetime.today()}  Summary sectors in GET state: {workerGETsummary_sectors}\n ')
+if workerPC1summary_sectors < 20 and workerGETsummary_sectors < 10:
     os.system("/usr/local/bin/lotus-miner sectors pledge >> /var/log/filecoin-zabbix/pledge.log 2>&1")
     #with open("/var/log/filecoin-zabbix/pledge.log", mode='a', encoding='utf8') as file:
         #file.write(f'{datetime.today()}  Summary sectors PC1 : {workerPC1summary_sectors}\n ')
