@@ -44,6 +44,7 @@ for worker in workerslist:
     worker_phase_list.append(f'{worker}_TOTAL')
     worker_phase_list.append(f'{worker}_PC1')
     worker_phase_list.append(f'{worker}_PC2')
+    worker_phase_list.append(f'{worker}_GET')
 # print(f"{worker_phase_list}")
 workers_sectors_number = {worker: 0 for worker in worker_phase_list}
 
@@ -55,10 +56,14 @@ for sector in sector_list:
                 workers_sectors_number[f"{worker}_PC1"] += 1
             if sector['#STAGE'] == "PC2":
                 workers_sectors_number[f"{worker}_PC2"] += 1
+            if sector['#STAGE'] == "GET":
+                workers_sectors_number[f"{worker}_GET"] += 1
     if sector['#STAGE'] == 'abnormal':
         abnormal_count += 1
     if len(sector['#TIME']) > 8 and sector['#STAGE'] == 'PC2':
-        # print(sector['#TIME'], sector['#STAGE'], sector['#PID'])
+        command = (
+            f'/usr/local/bin/lotus-miner sealing abort {sector["#PID"]} >> /var/log/filecoin-zabbix/pledge.log 2>&1')
+        os.system(f'{command}')
         freezePC2_count += 1
 
 for key in workers_sectors_number:
@@ -69,10 +74,11 @@ for key in workers_sectors_number:
         workerGETcurrent_count += 1
         workerGETsummary_sectors += workers_sectors_number[key]
 
-#os.umask(0)
 with open("/var/log/filecoin-zabbix/pledge.log", mode='a', encoding='utf8') as file:
-    file.write(f'{datetime.today()}  Summary sectors in PC1 state: {workerPC1summary_sectors}\n ')
-    file.write(f'{datetime.today()}  Summary sectors in GET state: {workerGETsummary_sectors}\n ')
+    file.write(f'{datetime.today()}  Summary sectors in PC1 state: {workerPC1summary_sectors}\n')
+    file.write(f'{datetime.today()}  Summary sectors in GET state: {workerGETsummary_sectors}\n')
+    StringCount = sum(1 for line in file)
+    file.write(f'{datetime.today()}  Log lenght: {StringCount}\n')
 if workerPC1summary_sectors < 20 and workerGETsummary_sectors < 10:
     os.system("/usr/local/bin/lotus-miner sectors pledge >> /var/log/filecoin-zabbix/pledge.log 2>&1")
     #with open("/var/log/filecoin-zabbix/pledge.log", mode='a', encoding='utf8') as file:
@@ -85,12 +91,10 @@ if workerPC1summary_sectors < 20 and workerGETsummary_sectors < 10:
 
 if workerPC1current_count < workerPC1count:
     pass
-#print(f'abnormal_count = {abnormal_count}, freezePC2_count = {freezePC2_count}')
 #print(f'{workers_sectors_number}')
 #print(f'workerPC1summary_sectors {workerPC1summary_sectors} workerPC1current_count {10*workerPC1current_count}')
 #print(workerPC1summary_sectors)
 
-# [{"{#UNIT.NAME}":"console-screen.service",
 for keys in workers_sectors_number:
     json_ready.append({'name': keys, 'value': workers_sectors_number[keys]})
 json_ready.append({'name': "FreezePC2_count", 'value': freezePC2_count})
