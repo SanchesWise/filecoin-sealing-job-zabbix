@@ -77,8 +77,8 @@ for key in workers_sectors_number:
 with open("/var/log/filecoin-zabbix/pledge.log", mode='a', encoding='utf8') as file:
     file.write(f'{datetime.today()}  Summary sectors in PC1 state: {workerPC1summary_sectors}\n')
     file.write(f'{datetime.today()}  Summary sectors in GET state: {workerGETsummary_sectors}\n')
-    StringCount = len(file.readlines())
-    file.write(f'{datetime.today()}  Log lenght: {StringCount}\n')
+    #StringCount = len(file.readlines())
+    #file.write(f'{datetime.today()}  Log lenght: {StringCount}\n')
 if workerPC1summary_sectors < 20 and workerGETsummary_sectors < 10:
     os.system("/usr/local/bin/lotus-miner sectors pledge >> /var/log/filecoin-zabbix/pledge.log 2>&1")
     #with open("/var/log/filecoin-zabbix/pledge.log", mode='a', encoding='utf8') as file:
