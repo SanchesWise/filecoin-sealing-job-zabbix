@@ -79,7 +79,7 @@ with open("/var/log/filecoin-zabbix/pledge.log", mode='a', encoding='utf8') as f
     file.write(f'{datetime.today()}  Summary sectors in GET state: {workerGETsummary_sectors}\n')
     #StringCount = len(file.readlines())
     #file.write(f'{datetime.today()}  Log lenght: {StringCount}\n')
-if workerPC1summary_sectors < 15 and workerGETsummary_sectors < 10:
+if workerPC1summary_sectors < 23 and workerGETsummary_sectors < 10:
     os.system("/usr/local/bin/lotus-miner sectors pledge >> /var/log/filecoin-zabbix/pledge.log 2>&1")
     #with open("/var/log/filecoin-zabbix/pledge.log", mode='a', encoding='utf8') as file:
         #file.write(f'{datetime.today()}  Summary sectors PC1 : {workerPC1summary_sectors}\n ')
